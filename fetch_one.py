@@ -2,6 +2,7 @@ import requests, json
 
 r = requests.get("https://www.mathos.unios.hr/wp-json/wp/v2/pages",
                  params={"per_page": 1})
+
 data = r.json()
 
 print("Status:", r.status_code)

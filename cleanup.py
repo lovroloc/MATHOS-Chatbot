@@ -14,7 +14,9 @@ def html_to_text(html):
     text = re.sub(r"[ \t]{2,}", " ", text)
     return text.strip()
 
+
 out = open("data/docs.jsonl", "w", encoding="utf-8")
+
 
 for kind in ["pages", "posts"]:
     items = json.loads(pathlib.Path(f"data/raw/{kind}.json").read_text(encoding="utf-8"))
