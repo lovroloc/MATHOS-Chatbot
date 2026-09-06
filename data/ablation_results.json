@@ -1,0 +1,78 @@
+[
+  {
+    "config": "Bez konteksta",
+    "table": "chunks",
+    "answer_hits": 44,
+    "answer_total": 45,
+    "url_hits": 20,
+    "url_total": 22,
+    "by_category": {
+      "kolegiji": [
+        10,
+        10
+      ],
+      "osoblje": [
+        14,
+        14
+      ],
+      "formulacija": [
+        3,
+        4
+      ],
+      "semanticko": [
+        4,
+        4
+      ],
+      "opce": [
+        4,
+        4
+      ],
+      "nastava": [
+        4,
+        4
+      ],
+      "sifra": [
+        5,
+        5
+      ]
+    }
+  },
+  {
+    "config": "S kontekstom (332)",
+    "table": "chunks_ctx",
+    "answer_hits": 45,
+    "answer_total": 45,
+    "url_hits": 21,
+    "url_total": 22,
+    "by_category": {
+      "kolegiji": [
+        10,
+        10
+      ],
+      "osoblje": [
+        14,
+        14
+      ],
+      "formulacija": [
+        4,
+        4
+      ],
+      "semanticko": [
+        4,
+        4
+      ],
+      "opce": [
+        4,
+        4
+      ],
+      "nastava": [
+        4,
+        4
+      ],
+      "sifra": [
+        5,
+        5
+      ]
+    }
+  }
+]

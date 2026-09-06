@@ -25,5 +25,5 @@ def fetch_type(kind):
     return items
 
 
-for kind in ["pages", "posts"]:
+for kind in ["pages", "posts", "aktualne_obavijesti"]:
     fetch_type(kind)

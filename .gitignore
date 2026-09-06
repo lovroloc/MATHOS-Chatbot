@@ -1,3 +1,5 @@
-".venv/data/__pycache__" 
-.idea
 .venv
+.idea
+__pycache__/
+*.pyc
+.env

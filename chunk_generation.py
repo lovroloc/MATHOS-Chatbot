@@ -1,23 +1,52 @@
 import json
 
-def chunk(text, size=800, overlap=100):
-    parts, i = [], 0
-    while i < len(text):
-        parts.append(text[i:i+size])
-        i += size - overlap
-    return parts
+def chunk(text, target=600, overlap=100):
+    """Reže po odlomcima, spaja male, ne siječe usred rečenice."""
+    paragraphs = [p.strip() for p in text.split("\n") if p.strip()]
+    chunks, current = [], ""
+
+    for p in paragraphs:
+        if len(current) + len(p) + 1 <= target:
+            current = (current + "\n" + p).strip()
+        else:
+            if current:
+                chunks.append(current)
+            if len(p) > target * 1.5:
+                sentences = p.split(". ")
+                buf = ""
+                for s in sentences:
+                    if len(buf) + len(s) + 2 <= target:
+                        buf = (buf + ". " + s).strip(". ")
+                    else:
+                        if buf:
+                            chunks.append(buf)
+                        buf = s
+                if buf:
+                    chunks.append(buf)
+                current = ""
+            else:
+                current = p
+
+    if current:
+        chunks.append(current)
+    return chunks
+
 
 out = open("data/chunks.jsonl", "w", encoding="utf-8")
 n = 0
-for line in open("data/docs.jsonl", encoding="utf-8"):
+for line in open("data/docs_all.jsonl", encoding="utf-8"):
     doc = json.loads(line)
     for pos, part in enumerate(chunk(doc["text"])):
+        if len(part) < 50:          # preskoči degenerirane
+            continue
+        prefixed = f"{doc['title']}\n{part}" if doc.get("title") else part
         out.write(json.dumps({
             "chunk_id": f"{doc['doc_id']}-{pos}",
             "doc_id": doc["doc_id"],
-            "text": part,
+            "text": prefixed,
             "title": doc["title"],
             "url": doc["url"],
+            "doc_type": doc.get("doc_type"),
             "position": pos,
         }, ensure_ascii=False) + "\n")
         n += 1
