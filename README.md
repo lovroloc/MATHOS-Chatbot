@@ -8,6 +8,8 @@ modelom isključivo na temelju dohvaćenog konteksta.
 
 Završni rad, mentor: prof. dr. sc. Domagoj Matijević.
 
+Autori: Lovro Roguljić & Mia Macan 
+
 ---
 
 ## Sadržaj
