@@ -2,9 +2,6 @@ import json, pathlib
 from bs4 import BeautifulSoup
 import re
 
-pages = json.loads(open("data/raw/pages.json", encoding="utf-8").read())
-doc = pages[0]
-
 def html_to_text(html):
     soup = BeautifulSoup(html, "html.parser")
     for tag in soup(["script", "style", "nav", "footer"]):

@@ -6,10 +6,8 @@ conn = psycopg2.connect(
 )
 cur = conn.cursor()
 
-# pgvector ekstenzija
 cur.execute("CREATE EXTENSION IF NOT EXISTS vector;")
 
-# tablica
 cur.execute("""
 CREATE TABLE IF NOT EXISTS chunks (
     chunk_id TEXT PRIMARY KEY,
@@ -24,7 +22,6 @@ CREATE TABLE IF NOT EXISTS chunks (
 
 conn.commit()
 
-# provjera
 cur.execute("SELECT column_name, data_type FROM information_schema.columns WHERE table_name = 'chunks';")
 for row in cur.fetchall():
     print(row)

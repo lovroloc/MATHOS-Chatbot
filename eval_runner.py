@@ -12,10 +12,6 @@ eval_set = [json.loads(l) for l in open("data/eval_set.jsonl", encoding="utf-8")
 
 results = []
 
-print("Primjer expected_source:", eval_set[0].get("expected_source"))
-print("Primjer dohvaćenog URL-a:", hybrid_search(eval_set[0]["question"], top_n=1)[0][0][2])
-
-
 for q in eval_set:
     retrieved = hybrid_search(q["question"], top_n=5)
     urls = [r[0][2] for r in retrieved]
@@ -23,6 +19,7 @@ for q in eval_set:
 
     expected_url = q.get("expected_source")
     expected_answer = str(q.get("expected_answer", ""))
+    expected_any = q.get("expected_any")
 
     # 1. je li očekivani URL među dohvaćenima
     url_hit_1 = expected_url in urls[:1] if expected_url != "N/A" else None
@@ -33,11 +30,6 @@ for q in eval_set:
     joined = norm(" ".join(texts))
     if q["category"] == "izvan_opsega":
         answer_in_context = None  # mjeri se u eval_guardrails.py
-    else:
-        answer_in_context = norm(expected_answer) in joined if expected_answer else None
-    expected_any = q.get("expected_any")
-    if q["category"] == "izvan_opsega":
-        answer_in_context = None
     elif expected_any:
         answer_in_context = any(norm(e) in joined for e in expected_any)
     else:
@@ -51,7 +43,6 @@ for q in eval_set:
         "top_urls": urls[:3],
     })
 
-# sažetak
 def rate(key, subset=None):
     rows = [r for r in results if r[key] is not None]
     if subset:
@@ -77,10 +68,6 @@ for r in results:
         print(f"  očekivano: {r['expected_answer']}")
         print(f"  dohvaćeno: {r['top_urls']}")
 
-retrieved = hybrid_search(eval_set[0]["question"], top_n=3)
-print(retrieved[0])
-
-# spremi detalje
 with open("data/eval_results.jsonl", "w", encoding="utf-8") as f:
     for r in results:
         f.write(json.dumps(r, ensure_ascii=False) + "\n")

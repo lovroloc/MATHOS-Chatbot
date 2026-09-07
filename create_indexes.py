@@ -4,7 +4,6 @@ conn = psycopg2.connect(host="localhost", port=5433,
                         user="mathos", password="mathos", dbname="mathosbot")
 cur = conn.cursor()
 
-# vektorski
 cur.execute("""
 CREATE INDEX IF NOT EXISTS chunks_embedding_idx
 ON chunks USING hnsw (embedding vector_cosine_ops);

@@ -1,11 +1,4 @@
-import json, unicodedata, re
-
-def slugify(s):
-    s = unicodedata.normalize("NFD", s.lower())
-    s = "".join(c for c in s if unicodedata.category(c) != "Mn")
-    s = s.replace("đ", "d")
-    return re.sub(r"[^a-z0-9]+", "-", s).strip("-")
-
+import json
 
 docs = []
 
@@ -24,7 +17,6 @@ for s in staff:
     if s.get("phoneNumber"):
         parts.append(f"Telefon: {s['phoneNumber']}.")
 
-    slug = slugify(f"{s['firstName']} {s['lastName']}")
     staff_urls = json.load(open("data/staff_urls.json", encoding="utf-8"))
     docs.append({
         "doc_id": f"staff-{s['id']}",
@@ -92,5 +84,3 @@ with open("data/docs_combined.jsonl", "w", encoding="utf-8") as f:
         f.write(json.dumps(d, ensure_ascii=False) + "\n")
 
 print("Ukupno kombiniranih dokumenata:", len(docs))
-
-# popraviti ovo jos, treba dodati slug

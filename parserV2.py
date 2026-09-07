@@ -4,13 +4,6 @@ import re
 import requests
 import json, time
 
-url = "https://www.mathos.unios.hr/kolegiji/inteligentni-robotski-sustavi/"
-r = requests.get(url)
-print("Status:", r.status_code)
-print("Duljina HTML-a:", len(r.text))
-
-
-
 
 def parse_course_page(html):
     soup = BeautifulSoup(html, "html.parser")
@@ -52,18 +45,6 @@ def parse_course_page(html):
             result["sections"][key] = p.get_text(strip=True) if p else None
 
     return result
-
-urls = [
-    "https://www.mathos.unios.hr/kolegiji/inteligentni-robotski-sustavi/",
-             "https://www.mathos.unios.hr/kolegiji/operativni-sustavi/",
-             "https://www.mathos.unios.hr/kolegiji/diferencijalni-racun/"
-]
-for u in urls:
-    r = requests.get(u)
-    result = parse_course_page(r.text)
-    print(json.dumps(result, ensure_ascii=False, indent=2))
-    print("---")
-
 
 
 all_links = []

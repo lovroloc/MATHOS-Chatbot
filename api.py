@@ -13,9 +13,6 @@ from slowapi.errors import RateLimitExceeded
 from fastapi import Request
 
 
-
-
-
 app = FastAPI(title="Mathos Chatbot API")
 limiter = Limiter(key_func=get_remote_address)
 app.state.limiter = limiter

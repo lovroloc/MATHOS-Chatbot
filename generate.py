@@ -61,7 +61,7 @@ def answer(question, top_n=5, history=None):
         if person:
             return format_person(person), []
 
-    search_q = rewrite_question(question, history) if history else question
+    search_q = rewrite_question(question, history)
     results = hybrid_search(search_q, top_n=top_n)
 
     if not results:

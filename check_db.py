@@ -1,6 +1,6 @@
 import psycopg2
 
-conn = psycopg2.connect(host="localhost", port=5433,   # provjeri je li 5432 ili 5433 kod tebe
+conn = psycopg2.connect(host="localhost", port=5433,
                         user="mathos", password="mathos", dbname="mathosbot")
 cur = conn.cursor()
 

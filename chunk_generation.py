@@ -1,6 +1,6 @@
 import json
 
-def chunk(text, target=600, overlap=100):
+def chunk(text, target=600):
     """Reže po odlomcima, spaja male, ne siječe usred rečenice."""
     paragraphs = [p.strip() for p in text.split("\n") if p.strip()]
     chunks, current = [], ""
