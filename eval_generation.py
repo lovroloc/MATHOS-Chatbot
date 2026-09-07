@@ -27,7 +27,7 @@ for i, q in enumerate(qs, 1):
         print(f"       očekivano: {q.get('expected_any') or q.get('expected_answer')}")
         print(f"       dobiveno:  {text[:150]}")
 
-    time.sleep(1)   # da ne udariš u rate limit
+    time.sleep(1) # da se ne predje rate limit
 
 print(f"\n=== TOČNIH ODGOVORA: {sum(1 for r in results if r['correct'])}/{len(results)} ===")
 

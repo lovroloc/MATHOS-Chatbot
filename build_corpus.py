@@ -2,7 +2,7 @@ import json
 
 docs = []
 
-# osoblje → tekstualni opis
+# osoblje -> tekstualni opis
 staff = [json.loads(l) for l in open("data/staff.jsonl", encoding="utf-8")]
 for s in staff:
     parts = [f"{s.get('title', '')} {s['firstName']} {s['lastName']}".strip()]

@@ -21,15 +21,15 @@ for q in eval_set:
     expected_answer = str(q.get("expected_answer", ""))
     expected_any = q.get("expected_any")
 
-    # 1. je li očekivani URL među dohvaćenima
+    #je li ocekivani URL među dohvacenima
     url_hit_1 = expected_url in urls[:1] if expected_url != "N/A" else None
     url_hit_3 = expected_url in urls[:3] if expected_url != "N/A" else None
     url_hit_5 = expected_url in urls if expected_url != "N/A" else None
 
-    # 2. pojavljuje li se očekivani odgovor u dohvaćenom tekstu
+    #pojavljuje li se ocekivani odgovor u dohvacenom tekstu
     joined = norm(" ".join(texts))
     if q["category"] == "izvan_opsega":
-        answer_in_context = None  # mjeri se u eval_guardrails.py
+        answer_in_context = None  #mjeri se u eval_guardrails.py
     elif expected_any:
         answer_in_context = any(norm(e) in joined for e in expected_any)
     else:

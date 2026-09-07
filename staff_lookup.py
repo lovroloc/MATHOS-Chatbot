@@ -10,7 +10,7 @@ def normalize(s):
     s = "".join(c for c in s if unicodedata.category(c) != "Mn")
     return re.sub(r"[^a-z ]", "", s)
 
-# predizračunaj normalizirana imena
+# predizracunaj normalizirana imena
 for s in staff:
     s["_norm"] = normalize(f"{s['firstName']} {s['lastName']}")
 
@@ -21,7 +21,7 @@ STOPWORDS = {"profesor", "profesora", "profesorica", "docent", "asistent",
              "algebra", "analiza", "matematika", "informatika", "statistika"}
 
 def find_person(query, threshold=0.85):
-    """Vrati najbolji pogodak po imenu iz upita, ili None."""
+    #vrati najbolji pogodak po imenu iz upita, ili None
     q = normalize(query)
     candidates = []
     for s in staff:
@@ -47,7 +47,7 @@ def find_person(query, threshold=0.85):
     if not candidates:
         return None, 0
 
-    # ako više osoba dijeli prezime, ime mora presuditi
+    # ako vise osoba dijeli prezime, ime mora presuditi
     if len(candidates) > 1:
         candidates.sort(key=lambda x: -x[2])
         if candidates[0][2] < 0.85:

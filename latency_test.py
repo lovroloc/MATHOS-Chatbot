@@ -17,7 +17,7 @@ configs = [
 ]
 
 for label, kwargs in configs:
-    hybrid_search(queries[0], **kwargs)          # zagrijavanje
+    hybrid_search(queries[0], **kwargs) #za pocetak
     times = []
     for q in queries:
         t0 = time.time()

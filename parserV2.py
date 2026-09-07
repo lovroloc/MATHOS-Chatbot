@@ -16,7 +16,7 @@ def parse_course_page(html):
 
     result = {"title": title, "sections": {}}
 
-    # osnovne informacije
+    #osnovne informacije
     info_div = article.select_one(".c-profile__data")
     if info_div:
         info_text = info_div.get_text(" ", strip=True)  # ključna linija — spoji sav tekst
@@ -30,7 +30,7 @@ def parse_course_page(html):
             result["hours"] = {"predavanja": int(m.group(2)), "vjezbe": int(m.group(3)), "seminari": int(m.group(4))}
             result["ects"] = int(m.group(5))
 
-    # sve ostale imenovane sekcije (literatura, materijali, itd.)
+    #sve ostale imenovane sekcije (literatura, materijali, itd.)
     for section in article.select(".c-profile__inner"):
         heading = section.select_one("h3")
         if not heading:

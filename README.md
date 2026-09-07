@@ -128,16 +128,6 @@ python -m venv .venv
 pip install -r requirements.txt
 ```
 
-> **Napomena:** `requirements.txt` trenutno sadrži samo ML/scraping sloj
-> (torch, transformers, sentence-transformers, requests, beautifulsoup4, numpy,
-> scikit-learn i njihove tranzitivne ovisnosti). Za API, bazu i LLM dodatno treba:
->
-> ```bash
-> pip install fastapi uvicorn "psycopg2-binary" mysql-connector-python google-genai python-dotenv slowapi pgvector
-> ```
->
-> (`mysql-connector-python` samo ako ponovno izvoziš iz intraneta.)
-
 Prvo pokretanje `sentence-transformers` skida model `intfloat/multilingual-e5-base`
 (~1 GB) u HuggingFace cache.
 
@@ -149,6 +139,7 @@ Prvo pokretanje `sentence-transformers` skida model `intfloat/multilingual-e5-ba
 
 ```
 GOOGLE_API_KEY=tvoj_kljuc
+MYSQL_PASSWORD=lozinka_za_intranet_bazu
 ```
 
 **Postgres** – `docker-compose.yml` diže `pgvector/pgvector:pg16` i mapira
@@ -159,8 +150,9 @@ Kredencijali su hardkodirani u skriptama:
 host=localhost  port=5433  user=mathos  password=mathos  dbname=mathosbot
 ```
 
-**MySQL** (samo za izvoz osoblja/nastave) – hardkodirano u
-`fetch_staff_from_db.py` i `fetch_teaching_from_db.py`:
+**MySQL** (samo za izvoz osoblja/nastave) – host/user/database su hardkodirani u
+`fetch_staff_from_db.py` i `fetch_teaching_from_db.py`, lozinka dolazi iz `.env`
+(`MYSQL_PASSWORD`):
 
 ```
 host=localhost  port=3306  user=chatbot  database=intranet
@@ -556,14 +548,8 @@ Hibrid nadmašuje čisti vektorski dohvat prije svega na upitima po šifri koleg
 
 ## Poznati nedostaci i TODO
 
-- **`requirements.txt` je nepotpun** – nedostaju `fastapi`, `uvicorn`,
-  `psycopg2-binary`, `mysql-connector-python`, `google-genai`, `python-dotenv`,
-  `slowapi`, `pgvector` (vidi [Instalacija](#instalacija)).
 - **Obavijesti nisu u korpusu** – `data/raw/aktualne_obavijesti.json` se dohvaća,
   ali `cleanup.py` obrađuje samo `pages` i `posts`.
-- **Tajne u repozitoriju** – MySQL lozinka je hardkodirana u
-  `fetch_staff_from_db.py`, `fetch_teaching_from_db.py`, `connectiontest.py`.
-  Prebaciti u `.env` prije predaje / objave.
 - **DB kredencijali hardkodirani** – Postgres (`mathos/mathos`) u svim `*_db`
   skriptama; nije parametrizirano.
 - **Contextual retrieval nedovršen** – ~332 / ~2660 chunkova ima kontekst

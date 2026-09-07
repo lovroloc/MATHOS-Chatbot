@@ -20,12 +20,12 @@ app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],          # za razvoj; u produkciji suzi na mathos.unios.hr
+    allow_origins=["*"], # za razvoj; u produkciji suziti na mathos.unios.hr
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# --- modeli ---
+#modeli
 
 class ChatRequest(BaseModel):
     message: str
@@ -45,10 +45,9 @@ class SearchRequest(BaseModel):
     query: str
     top_k: int = 5
 
-# --- logiranje ---
-
+#logiranje
 LOG_PATH = "data/query_log.jsonl"
-SESSIONS = {}          # session_id -> [{"role": ..., "content": ...}]
+SESSIONS = {} # session_id -> [{"role": ..., "content": ...}]
 MAX_HISTORY = 8
 os.makedirs("data", exist_ok=True)
 
@@ -56,8 +55,7 @@ def log_query(entry):
     with open(LOG_PATH, "a", encoding="utf-8") as f:
         f.write(json.dumps(entry, ensure_ascii=False) + "\n")
 
-# --- endpointi ---
-
+#endpointi
 @app.get("/health")
 def health():
     return {"status": "ok"}
@@ -65,7 +63,6 @@ def health():
 @app.post("/search")
 @limiter.limit("60/minute")
 def search(request: Request, req: SearchRequest):
-    """Samo retrieval, bez LLM-a. Koristi eval runner."""
     t0 = time.time()
     try:
         results = hybrid_search(req.query, top_n=req.top_k)

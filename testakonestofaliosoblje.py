@@ -17,7 +17,7 @@ missing = [c["title"] for c in courses if not c.get("code")]
 print("\nJoš uvijek bez koda:", len(missing))
 print(missing[:10])
 
-# provjeri par nesparenih kodova ručno - je li stvarno različit kolegij ili format
+# provjerava se par nesparenih kodova rucno tj. je li stvarno razlicit kolegij ili format
 only_courses_sample = [c for c in courses if c.get("code") in ["M134", "F003", "MI003"]]
 for c in only_courses_sample:
     print(c["title"], "-", c["code"], "-", c["url"])

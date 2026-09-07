@@ -1,9 +1,12 @@
 import mysql.connector
 import json
+import os
+from dotenv import load_dotenv
 
+load_dotenv()
 conn = mysql.connector.connect(
     host="localhost", port=3306,
-    user="chatbot", password="eZi#i0o9i", database="intranet"
+    user="chatbot", password=os.getenv("MYSQL_PASSWORD"), database="intranet"
 )
 cursor = conn.cursor()
 

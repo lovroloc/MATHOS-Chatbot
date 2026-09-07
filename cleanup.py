@@ -7,7 +7,7 @@ def html_to_text(html):
     for tag in soup(["script", "style", "nav", "footer"]):
         tag.decompose()
     text = soup.get_text(separator="\n")
-    text = re.sub(r"\n{3,}", "\n\n", text)      # višak praznih redaka
+    text = re.sub(r"\n{3,}", "\n\n", text) # visak praznih redaka
     text = re.sub(r"[ \t]{2,}", " ", text)
     return text.strip()
 
@@ -19,7 +19,7 @@ for kind in ["pages", "posts"]:
     items = json.loads(pathlib.Path(f"data/raw/{kind}.json").read_text(encoding="utf-8"))
     for it in items:
         text = html_to_text(it["content"]["rendered"])
-        if len(text) < 100:          # preskoči prazne stranice
+        if len(text) < 100:          # preskoci prazne stranice
             continue
         doc = {
             "doc_id": f"{kind}-{it['id']}",

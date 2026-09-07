@@ -1,11 +1,14 @@
 import mysql.connector
 import requests
+import os
+from dotenv import load_dotenv
 
+load_dotenv()
 conn = mysql.connector.connect(
     host="localhost",
     port=3306,
     user="chatbot",
-    password="eZi#i0o9i",
+    password=os.getenv("MYSQL_PASSWORD"),
     database="intranet"
 )
 print("Spojeno:", conn.is_connected())

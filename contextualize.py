@@ -8,7 +8,7 @@ load_dotenv()
 client = genai.Client(api_key=os.getenv("GOOGLE_API_KEY"))
 
 SAMPLE_SIZE = 350
-SLEEP = 4.2          # 15 zahtjeva/min limit
+SLEEP = 4.2 # 15 zahtjeva/min limit
 
 PROMPT = """Evo cijelog dokumenta:
 <dokument>
@@ -35,7 +35,7 @@ for c in chunks:
 
 multi = [c for c in chunks if counts[c["doc_id"]] > 1]
 
-# deterministički uzorak da je ponovljiv
+# deterministicki uzorak da je ponovljiv
 random.seed(42)
 sample = random.sample(multi, min(SAMPLE_SIZE, len(multi)))
 

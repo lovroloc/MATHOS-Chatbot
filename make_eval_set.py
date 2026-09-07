@@ -6,7 +6,7 @@ staff = [json.loads(l) for l in open("data/staff.jsonl", encoding="utf-8")]
 questions = []
 qid = 1
 
-# 10 pitanja o ECTS-u kolegija
+#10 pitanja o ECTS-u kolegija
 for c in random.sample([c for c in courses if c.get("ects")], 10):
     questions.append({
         "id": f"q{qid:03d}",
@@ -18,7 +18,7 @@ for c in random.sample([c for c in courses if c.get("ects")], 10):
     })
     qid += 1
 
-# 10 pitanja o mailovima osoblja
+#10 pitanja o mailovima osoblja
 for s in random.sample([s for s in staff if s.get("email")], 10):
     questions.append({
         "id": f"q{qid:03d}",

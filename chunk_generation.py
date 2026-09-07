@@ -1,7 +1,7 @@
 import json
 
 def chunk(text, target=600):
-    """Reže po odlomcima, spaja male, ne siječe usred rečenice."""
+    #reze po odlomcima, spaja male, ne sijece usred recenice
     paragraphs = [p.strip() for p in text.split("\n") if p.strip()]
     chunks, current = [], ""
 
@@ -37,7 +37,7 @@ n = 0
 for line in open("data/docs_all.jsonl", encoding="utf-8"):
     doc = json.loads(line)
     for pos, part in enumerate(chunk(doc["text"])):
-        if len(part) < 50:          # preskoči degenerirane
+        if len(part) < 50: #preskoci degenerirane
             continue
         prefixed = f"{doc['title']}\n{part}" if doc.get("title") else part
         out.write(json.dumps({

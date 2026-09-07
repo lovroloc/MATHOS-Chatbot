@@ -2,8 +2,8 @@ import psycopg2
 
 conn = psycopg2.connect(host="localhost", port=5433,
                         user="mathos", password="mathos", dbname="mathosbot")
-cur = conn.cursor()
 
+cur = conn.cursor()
 cur.execute("SELECT COUNT(*) FROM chunks")
 print("Ukupno chunkova u bazi:", cur.fetchone()[0])
 
